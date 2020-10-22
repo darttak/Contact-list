@@ -1,15 +1,39 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from "vuex-persistedstate";
+import VuexUndoRedo from 'vuex-undo-redo';
 
 Vue.use(Vuex)
+Vue.use(VuexUndoRedo);
+
 
 export default new Vuex.Store({
-  state: {
+state: {
+  newContactArray: [],
+  userInfo: {}
+},
+mutations: {
+  addContact(state, newContact) {
+    state.newContactArray.unshift(newContact)
   },
-  mutations: {
+  deleteContact(state, index){
+      state.newContactArray.splice(index, 1);
   },
-  actions: {
+  addUserDetails(state, userInfo){
+    state.userInfo = userInfo
   },
-  modules: {
+  undoDraw() {
+    this.undo()
+  },
+  emptyState() { 
+    this.replaceState({ newContactArray: [], userInfo: {} }) }
+},
+getters: {
+  allContacts(state){
+    return state.newContactArray
   }
+},
+actions: {},
+plugins: [createPersistedState({key: 'vuexStore'})]
 })
+
