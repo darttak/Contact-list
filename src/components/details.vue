@@ -16,7 +16,7 @@
         :
         <input type="text" placeholder="Parameter name..." v-model="paramValue">
         <button @click="addNewDetailsParam()">Add</button>
-        <button @click="undoDraw" type="button">Undo</button>
+        <button type="button">Undo</button>
         <table class="nice-table">
             <tr>
                 <th>Field Name</th>
@@ -47,46 +47,31 @@ export default {
             paramName: "",
             paramValue: "",
             newValue: "",
-            prevUserInfo: {}
         }
     },
     computed: {
-    userData (){
-      return this.$store.state.userInfo
+    userData() {
+        return this.$store.state.newContactArray.find(user => user.id == this.$route.params.id)
     }
     },
-    // setter
-    // set: function (newValue) {
-    //   var names = newValue.split(' ')
-    //   this.firstName = names[0]
-    //   this.lastName = names[names.length - 1]
-    // }
     methods: {
-        ...mapMutations(["addUserDetails", "emptyState"]),
+        ...mapMutations(["addUserDetails"]),
         addNewDetailsParam(){
-            this.prevUserInfo = {...this.userData}
-            console.log(this.prevUserInfo)
             this.$set(this.userData, this.paramName.toLowerCase(), this.paramValue)
             this.addUserDetails(this.userData)
         },
         editDetailsParam(clickedName){
-            this.prevUserInfo = {...this.userData}
             this.$set(this.userData, clickedName, this.newValue)
             this.addUserDetails(this.userData)
         },
         deleteDetailsParam(name){
-            this.prevUserInfo = {...this.userData}
             this.$delete(this.userData, name)
             this.addUserDetails(this.userData)
         },
-        undoDraw() {
-            // this.userData = this.prevUserInfo
-            // this.addUserDetails(this.userData)
-            this.undo()
-            
-        }
+        // undoAction(){
+        //     this.undo()
+        // }
     }
-    
 }
 </script>
 

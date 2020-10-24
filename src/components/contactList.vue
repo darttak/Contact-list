@@ -14,9 +14,7 @@
                 <th>Details</th>
             </tr>
             <tr v-for="contact in allContacts" :key="contact.id">
-                <td>
-                    {{contact.name}}
-                </td>
+                <td>{{contact.name}}</td>
                 <td>{{contact.phoneNumber}}</td>
                 <td><button class="delete" @click="showConfirmModal = true; clickedContact = contact">Delete</button></td>
                 <td><button @click="shareData(contact)">Details</button></td>
@@ -41,20 +39,17 @@ export default {
     methods: {
     ...mapMutations(["deleteContact", "addUserDetails"]),
     removeContact(clickedContact) {
-        console.log(this.$store.state.newContactArray)
-        console.log(clickedContact)
       let index = this.$store.state.newContactArray.indexOf(clickedContact)
         if(index !== -1) {
         this.deleteContact(index)
         } else {
-            alert("Елемент не найден!")
+            alert("Element not Found")
         }
     },
     shareData(contact){
         this.clickedContact = contact
-        this.addUserDetails(contact)
-        this.$router.push({name: "Details", params: {id: this.clickedContact.id}});
-        },
+        this.$router.push({name: "Details", params: {id: contact.id}});
+        },   
   }
 }
 </script>

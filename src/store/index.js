@@ -1,16 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from "vuex-persistedstate";
-import VuexUndoRedo from 'vuex-undo-redo';
 
 Vue.use(Vuex)
-Vue.use(VuexUndoRedo);
 
 
 export default new Vuex.Store({
 state: {
   newContactArray: [],
-  userInfo: {}
 },
 mutations: {
   addContact(state, newContact) {
@@ -20,13 +17,14 @@ mutations: {
       state.newContactArray.splice(index, 1);
   },
   addUserDetails(state, userInfo){
-    state.userInfo = userInfo
-  },
-  undoDraw() {
-    this.undo()
-  },
-  emptyState() { 
-    this.replaceState({ newContactArray: [], userInfo: {} }) }
+    var item = state.newContactArray.find(user => user.id == userInfo.id)
+    if (item != undefined){
+      var index = state.newContactArray.indexOf(userInfo)
+      state.newContactArray[index] = userInfo
+    }else {
+      state.newContactArray.unshift(userInfo)
+    }
+  }
 },
 getters: {
   allContacts(state){

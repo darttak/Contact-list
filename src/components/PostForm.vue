@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="submit">
     <input type="text" placeholder="name" v-model="name">
-    <input type="text" placeholder="phoneNumber" v-model="phoneNumber">
+    <input type="text" placeholder="phoneNumber" v-model="phonenumber">
     <button type="submit">Create Contact</button>
     <hr>
   </form>
@@ -13,7 +13,7 @@ export default {
   data() {
     return {
       name: "",
-      phoneNumber: "",
+      phonenumber: "",
       address: ""
     };
   },
@@ -22,10 +22,10 @@ export default {
     submit() {
       this.addContact({
         name: this.name,
-        phoneNumber: this.phoneNumber,
+        phonenumber: this.phonenumber,
         id: Date.now()
       });
-      this.name = this.phoneNumber = "";
+      this.name = this.phonenumber = "";
     }
   }
 };
