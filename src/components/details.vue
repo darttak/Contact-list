@@ -67,10 +67,7 @@ export default {
         deleteDetailsParam(name){
             this.$delete(this.userData, name)
             this.addUserDetails(this.userData)
-        },
-        // undoAction(){
-        //     this.undo()
-        // }
+        }
     }
 }
 </script>
